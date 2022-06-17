@@ -1,1 +1,1 @@
-worker: python main.py
+web: source setup.sh && python app.py

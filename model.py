@@ -51,8 +51,6 @@ class Normalization(nn.Module):
         return (img - self.mean) / self.std
 
 
-
-
 def gram_matrix(input):
     a, b, c, d = input.size()  # a=batch size(=1
 
@@ -112,7 +110,6 @@ def get_style_model_and_losses(cnn, normalization_mean, normalization_std,
     model = model[:(i + 1)]
 
     return model, style_losses, content_losses
-
 
 
 def image_loader(image_name):
@@ -192,10 +189,8 @@ def main(style_img, content_img):
     style_img = image_loader(style_img)
     content_img = image_loader(content_img)
 
-
     assert style_img.size() == content_img.size(), \
         "we need to import style and content images of the same size"
-
 
     cnn = models.vgg19(pretrained=True).features.to(device).eval()
     cnn_normalization_mean = torch.tensor([0.485, 0.456, 0.406]).to(device)
@@ -210,7 +205,9 @@ def main(style_img, content_img):
     styled = unloader(styled)
     return styled
 
+
 imsize = 512 if torch.cuda.is_available() else 128  # use small size if no gpu
+
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # device = torch.device("cpu")
 loader = transforms.Compose([
